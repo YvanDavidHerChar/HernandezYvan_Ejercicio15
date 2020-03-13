@@ -46,7 +46,7 @@ def loqueGrafico(X, Y, X_test, Y_test, n):
     devuelvo = np.append(f1_train, importancias_train)
     devuelvo = np.append(f1_test, devuelvo)
     return devuelvo
-promediosParam = np.ones([14,11])
+promediosParam = np.ones([14,10])
 f1_test = []
 f1_train = []
 std_test = []
@@ -60,7 +60,7 @@ for j in range(1,11):
     f1_test.append(np.mean(loqueleo[:,0]))
     std_train.append(np.std(loqueleo[:,1]))
     std_test.append(np.std(loqueleo[:,0]))
-    promediosParam[:,j] = np.mean(loqueleo[:,2:])
+    promediosParam[:,j-1] = np.mean(loqueleo[:,2:])
     
     
 plt.errorbar(range(1,11),f1_test, yerr=std_test, label='test')
@@ -68,8 +68,12 @@ plt.errorbar(range(1,11),f1_train, yerr=std_train, label='train')
 plt.legend()
 plt.savefig("F1_training_test.png")
 
+a = range(1,12)
+A = [a,a,a,a,a,a,a,a,a,a,a,a,a,a]
 plt.figure(figsize=(12,12))
-plt.plot(range(1,12),promediosParam.T)
+for i in range(14):
+    plt.plot(range(1,11),promediosParam[i,:], label=str(i))
+plt.legend()
 plt.savefig("features.png")
     
     
